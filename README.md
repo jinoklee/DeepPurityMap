@@ -147,8 +147,8 @@ python -m puritymap prepare-pon --conf ~/project/puritymap.conf --sheet ~/projec
 
 ```bash
 nohup python -m puritymap run --conf ~/project/puritymap.conf --sheet ~/project/samples.tsv > ~/project/run.log 2>&1 &
-#echo $! > ~/project/run.pid          # remember the run, to stop it later
-#tail -f ~/project/run.log            # follow the progress (Ctrl+C stops watching, not the run)
+echo $! > ~/project/run.pid          # remember the run, to stop it later
+tail -f ~/project/run.log            # follow the progress (Ctrl+C stops watching, not the run)
 ```
 
 To stop the run, including the GATK and R processes it started:
