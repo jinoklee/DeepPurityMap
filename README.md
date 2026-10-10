@@ -202,8 +202,3 @@ Commercial use, including use in a commercial service or product, is not permitt
 (contact: <contact email>). PurityMap is a research tool and must not be used for clinical decisions.
 See [LICENSE](LICENSE) for the full terms.
 
-The report uses third-party annotation data under their own terms:
-
-- **OncoKB** gene list — free for academic research use only; commercial use requires a license from [OncoKB](https://www.oncokb.org/terms)
-- **CIViC** therapies — [CC0](https://civicdb.org/about)
-- **NCBI Gene** — public domain ([NCBI policies](https://www.ncbi.nlm.nih.gov/home/about/policies/))
