@@ -195,7 +195,7 @@ To be added.
 
 ## License
 
-PurityMap — the code and the model weights — is available **for academic and non-commercial research use only**.
+PurityMap is available **for academic and non-commercial research use only**.
 Commercial use, including use in a commercial service or product, is not permitted without a separate license
 (contact: <contact email>). PurityMap is a research tool and must not be used for clinical decisions.
 See [LICENSE](LICENSE) for the full terms.
