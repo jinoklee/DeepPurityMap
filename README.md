@@ -28,14 +28,15 @@ conda env create -n puritymap -f environment.yml
 conda install -n puritymap -c conda-forge openjdk=17 -y
 conda run -n puritymap Rscript -e 'install.packages("PSCBS", repos="https://cloud.r-project.org")'
 
+# puritymap-predict — PyTorch 2.6 · natten · transformers
+conda create -n puritymap-predict python=3.10 -y
+conda run -n puritymap-predict pip install -r requirements-predict.txt
+
 # puritymap-gatk — GATK 4.6.2.0 and its Python environment
 cd ~ && wget https://github.com/broadinstitute/gatk/releases/download/4.6.2.0/gatk-4.6.2.0.zip
 unzip gatk-4.6.2.0.zip && cd gatk-4.6.2.0
 conda env create -n puritymap-gatk -f gatkcondaenv.yml 
 
-# puritymap-predict — PyTorch 2.6 · natten · transformers
-conda create -n puritymap-predict python=3.10 -y
-conda run -n puritymap-predict pip install -r ~/PurityMap/requirements-predict.txt
 ```
 
 Check:
