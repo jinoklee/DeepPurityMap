@@ -46,7 +46,7 @@ conda run -n puritymap Rscript -e 'library(PSCBS); library(vcfR); library(ggplot
 conda run -n puritymap-predict python -c "import torch, natten, transformers; print('cuda:', torch.cuda.is_available())"
 ```
 
-### Download the model and databases
+### Download the model
 
 The model weights and annotation databases are kept on Zenodo ([doi:10.5281/zenodo.XXXXXXX](https://doi.org/10.5281/zenodo.XXXXXXX)).
 Download them into the PurityMap folder:
@@ -55,16 +55,13 @@ Download them into the PurityMap folder:
 cd ~/PurityMap
 Z=https://zenodo.org/records/XXXXXXX/files
 wget -O resources/model/final_model_deploy.pth "$Z/final_model_deploy.pth?download=1"   # purity model weights (356 MB)
-wget -O puritymap_assets.tar.gz "$Z/puritymap_assets.tar.gz?download=1"                  # gene annotation for the report
-tar -xzf puritymap_assets.tar.gz -C resources/ && rm puritymap_assets.tar.gz
 ```
 
 - `resources/model/final_model_deploy.pth` — purity model weights. Its checksum is verified before every prediction.
-- `resources/assets/` — NCBI gene info, OncoKB gene list, CIViC therapies (used by the report)
 
 ---
 
-## 2. What to prepare before an analysis
+## 2. Prerequisite
 
 | Item | Requirements | Where to get it |
 |---|---|---|
@@ -131,8 +128,8 @@ Activate the tool environments and use the `puritymap` environment's Python:
 
 ```bash
 conda activate puritymap
+PY=$(which python)
 conda activate --stack puritymap-gatk
-PY=$(conda run -n puritymap which python)
 cd ~/PurityMap
 ```
 
@@ -189,17 +186,11 @@ The step folders are created in order as the run proceeds:
 | `6_plots/<sample_id>_purity.png` | Purity figure (SNP depth–VAF distribution with the expected positions for each purity) |
 | `6_plots/<sample_id>_genome.png` | Genome-wide copy-number figure |
 | `6_plots/<sample_id>_chr<N>.png` | Copy-number figure per chromosome |
-| `7_report/<sample_id>_report_en.html` | **The report** |
-| `7_report/<sample_id>_gene_classification.csv` | Altered genes with OncoKB · CIViC categories |
 | `metadata.json` | Status, start/end time and duration of each step, purity, sample sheet values |
 | `logs/<step>.log` · `logs/time.tsv` | One log per step and the time per step — look here when a step fails |
 
 ---
 
-## 5. Viewing the results
-
-**Open the HTML report in a browser.** It is a single self-contained file. It contains a summary, the tumor purity with its SNP depth–VAF map, the copy-number profile per chromosome,
-therapy database matches for altered genes, and related PubMed literature.
 
 ## Citation
 
