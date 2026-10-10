@@ -18,7 +18,7 @@ git clone https://github.com/jinoklee/PurityMap.git
 cd PurityMap
 ```
 
-### Create the conda environments (once)
+### Create the conda environments
 
 Three environments are used: analysis tools and R, GATK, and the purity model.
 
@@ -31,7 +31,7 @@ conda run -n puritymap Rscript -e 'install.packages("PSCBS", repos="https://clou
 # (2) puritymap-gatk — GATK 4.6.2.0 and its Python environment
 cd ~ && wget https://github.com/broadinstitute/gatk/releases/download/4.6.2.0/gatk-4.6.2.0.zip
 unzip gatk-4.6.2.0.zip && cd gatk-4.6.2.0
-conda env create -n puritymap-gatk -f gatkcondaenv.yml
+conda env create -n puritymap-gatk -f gatkcondaenv.yml 
 
 # (3) puritymap-predict — PyTorch 2.6 · natten · transformers
 conda create -n puritymap-predict python=3.10 -y
