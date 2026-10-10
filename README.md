@@ -128,7 +128,6 @@ Activate the tool environments and use the `puritymap` environment's Python:
 
 ```bash
 conda activate puritymap
-PY=$(which python)
 conda activate --stack puritymap-gatk
 cd ~/PurityMap
 ```
@@ -136,20 +135,20 @@ cd ~/PurityMap
 **1. Check** the settings, references, sheet, BAMs and tools. Fix what it reports and repeat until there are no errors.
 
 ```bash
-$PY -m puritymap check --conf ~/project/puritymap.conf --sheet ~/project/samples.tsv
+python -m puritymap check --conf ~/project/puritymap.conf --sheet ~/project/samples.tsv
 ```
 
 **2. Tumor-only samples only — build the PoN** once per capture kit, from a sheet that lists the normal BAMs:
 
 ```bash
-$PY -m puritymap prepare-pon --conf ~/project/puritymap.conf --sheet ~/project/pon_normals.tsv --platform WES
+python -m puritymap prepare-pon --conf ~/project/puritymap.conf --sheet ~/project/pon_normals.tsv --platform WES
 ```
 **3. Run.** Run it in the background:
 
 ```bash
-nohup $PY -m puritymap run --conf ~/project/puritymap.conf --sheet ~/project/samples.tsv > ~/project/run.log 2>&1 &
-echo $! > ~/project/run.pid          # remember the run, to stop it later
-tail -f ~/project/run.log            # follow the progress (Ctrl+C stops watching, not the run)
+nohup python -m puritymap run --conf ~/project/puritymap.conf --sheet ~/project/samples.tsv > ~/project/run.log 2>&1 &
+#echo $! > ~/project/run.pid          # remember the run, to stop it later
+#tail -f ~/project/run.log            # follow the progress (Ctrl+C stops watching, not the run)
 ```
 
 To stop the run, including the GATK and R processes it started:
