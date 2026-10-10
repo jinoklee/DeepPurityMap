@@ -179,14 +179,6 @@ The step folders are created in order as the run proceeds:
 | `3_features/<sample_id>.color.png` | The same map at SNP level |
 | `3_features/qc.tsv` | Quality-control values (normal reference used, heterozygous SNP count, noise) |
 | `4_purity/<sample_id>.purity.tsv` | **Predicted tumor purity** |
-| `5_cnv/<sample_id>.segments_cn.tsv` | Purity-adjusted copy number per segment |
-| `5_cnv/<sample_id>.genes_cn.tsv` | Copy number and gain/loss call per gene |
-| `5_cnv/<sample_id>.cnv_summary.json` | Summary of the copy-number profile |
-| `6_plots/<sample_id>_purity.png` | Purity figure (SNP depth–VAF distribution with the expected positions for each purity) |
-| `6_plots/<sample_id>_genome.png` | Genome-wide copy-number figure |
-| `6_plots/<sample_id>_chr<N>.png` | Copy-number figure per chromosome |
-| `metadata.json` | Status, start/end time and duration of each step, purity, sample sheet values |
-| `logs/<step>.log` · `logs/time.tsv` | One log per step and the time per step — look here when a step fails |
 
 ---
 
