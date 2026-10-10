@@ -101,6 +101,17 @@ PREDICT_PYTHON=/home/user/miniforge3/envs/puritymap-predict/bin/python
 BEDTOOLS=/home/user/miniforge3/envs/puritymap/bin/bedtools
 ```
 
+Print the lines for yours and paste them into `puritymap.conf`
+(`GATK` is the `gatk` file in the folder where you unzipped GATK):
+
+```bash
+echo "RSCRIPT=$(conda run -n puritymap which Rscript)"
+echo "PREDICT_PYTHON=$(conda run -n puritymap-predict which python)"
+echo "BEDTOOLS=$(conda run -n puritymap which bedtools)"
+```
+
+
+
 **`samples.tsv`** — one row per BAM, tab-separated:
 
 ```
