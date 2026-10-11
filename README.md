@@ -5,11 +5,15 @@
 PurityMap estimates tumor purity from sequencing data. SNP depth and variant allele fraction (VAF) across the genome are
 drawn as a 2D map, and a deep-learning model reads that map to predict purity.
 
+
 ---
 
 ## 1. Requirements
 
-[conda](https://docs.conda.io/) — we recommend [Miniforge](https://github.com/conda-forge/miniforge) (comes with `mamba` and the conda-forge channel)  
+Linux with either **conda** (we recommend [Miniforge](https://github.com/conda-forge/miniforge)) or **Docker**.
+To use a GPU with Docker, also install the [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html).
+
+Get the code and the model first, then install with **conda** (option A) or **Docker** (option B).
 
 ### Get PurityMap
 
@@ -18,12 +22,12 @@ git clone https://github.com/jinoklee/PurityMap.git
 cd PurityMap
 ```
 
-### Create the conda environments
+### Option A — conda environments
 
 Three environments are used: analysis tools and R, GATK, and the purity model.
 
 ```bash
-# puritymap — samtools · bcftools · tabix · mosdepth · bedtools · R 4.3 · Python 3.10 · pandas
+# puritymap — samtools · bcftools · tabix · mosdepth · bedtools · R 4.3 · Python 3.10
 conda env create -n puritymap -f environment.yml
 conda install -n puritymap -c conda-forge openjdk=17 -y
 conda run -n puritymap Rscript -e 'install.packages("PSCBS", repos="https://cloud.r-project.org")'
@@ -48,22 +52,33 @@ conda run -n puritymap-predict python -c "import torch, natten, transformers; pr
 
 ### Download the model
 
-The model weights and annotation databases are kept on Zenodo ([doi:10.5281/zenodo.XXXXXXX](https://doi.org/10.5281/zenodo.XXXXXXX)).
-Download them into the PurityMap folder:
+The model weights are kept on Zenodo ([doi:10.5281/zenodo.XXXXXXX](https://doi.org/10.5281/zenodo.XXXXXXX)).
+Download them into the PurityMap folder: resources/model/final_model_deploy.pth
 
 ```bash
 cd ~/PurityMap
-Z=https://zenodo.org/records/XXXXXXX/files
-wget -O resources/model/final_model_deploy.pth "$Z/final_model_deploy.pth?download=1"   # purity model weights (356 MB)
+wget -O resources/model/final_model_deploy.pth "https://zenodo.org/records/XXXXXXX/files/final_model_deploy.pth?download=1"  
 ```
 
-- `resources/model/final_model_deploy.pth` — purity model weights. Its checksum is verified before every prediction.
+
+### Option B — Docker
+
+Instead of the conda environments, build the image in the PurityMap folder, after downloading the model above
+(the model goes into the image):
+
+```bash
+cd ~/PurityMap
+docker build -t puritymap .
+```
+
+The image holds GATK, the analysis tools, R, the purity model environment and the model weights (about 10 GB).
+The first build takes 30–60 minutes.
 
 ---
 
 ## 2. Prerequisite
 
-| Item | Requirements | Where to get it |
+| Item | Requirements | Where |
 |---|---|---|
 | **Reference FASTA (hg38)** | The same reference the BAMs were aligned to. Uncompressed `.fasta`, with `.fai` and `.dict` in the same folder | [Broad public bucket](https://storage.googleapis.com/gcp-public-data--broad-references/hg38/v0/): `Homo_sapiens_assembly38.fasta` · `.fai` · `.dict` |
 | **4 GATK resources** | In one folder, each with its `.tbi`:<br>`dbsnp_146.hg38.vcf.gz`<br>`Mills_and_1000G_gold_standard.indels.hg38.vcf.gz`<br>`Homo_sapiens_assembly38.known_indels.vcf.gz`<br>`1000G_omni2.5.hg38.vcf.gz` | dbSNP 146: [Broad FTP](ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/hg38/) or the [DDBJ mirror](https://ddbj.nig.ac.jp/public/public-human-genomes/GRCh38/fasta/)<br>Others: the Broad public bucket above |
@@ -89,25 +104,23 @@ WES_BED=/data/bed/capture_kit_hg38.bed    # PANEL_BED= for a panel; nothing for 
 # PON_DIR=pon                             # tumor-only only
 THREADS=8
 JAVA_MEM=32G
-# NCBI_API_KEY=...                        # optional, faster PubMed search for the report
 
-# tool locations (see `conda env list` for the paths)
+# tool locations (see below)
 GATK=/home/user/gatk-4.6.2.0/gatk
 RSCRIPT=/home/user/miniforge3/envs/puritymap/bin/Rscript
 PREDICT_PYTHON=/home/user/miniforge3/envs/puritymap-predict/bin/python
 BEDTOOLS=/home/user/miniforge3/envs/puritymap/bin/bedtools
 ```
 
-Print the lines for yours and paste them into `puritymap.conf`
+**With Docker, leave these four tool lines out** — print the lines for yours and paste them into `puritymap.conf`
 (`GATK` is the `gatk` file in the folder where you unzipped GATK):
 
 ```bash
+echo "GATK=$HOME/gatk-4.6.2.0/gatk"
 echo "RSCRIPT=$(conda run -n puritymap which Rscript)"
 echo "PREDICT_PYTHON=$(conda run -n puritymap-predict which python)"
 echo "BEDTOOLS=$(conda run -n puritymap which bedtools)"
 ```
-
-
 
 **`samples.tsv`** — one row per BAM, tab-separated:
 
@@ -124,11 +137,13 @@ P01_N	P01	normal	/data/bam/P01_normal.bam	WES
 
 ## 3. Running the analysis
 
+### With conda
+
 Activate the tool environments and use the `puritymap` environment's Python:
 
 ```bash
 conda activate puritymap
-conda activate --stack puritymap-gatk
+conda activate --stack puritymap-gatk    # GATK's python tools need its environment first on PATH
 cd ~/PurityMap
 ```
 
@@ -141,12 +156,12 @@ python -m puritymap check --conf ~/project/puritymap.conf --sheet ~/project/samp
 **2. Tumor-only samples only — build the PoN** once per capture kit, from a sheet that lists the normal BAMs:
 
 ```bash
-python -m puritymap prepare-pon --conf ~/project/puritymap.conf --sheet ~/project/pon_normals.tsv --platform WES
+pyrhon -m puritymap prepare-pon --conf ~/project/puritymap.conf --sheet ~/project/pon_normals.tsv --platform WES
 ```
 **3. Run.** Run it in the background:
 
 ```bash
-nohup python -m puritymap run --conf ~/project/puritymap.conf --sheet ~/project/samples.tsv > ~/project/run.log 2>&1 &
+nohup pyrhon -m puritymap run --conf ~/project/puritymap.conf --sheet ~/project/samples.tsv > ~/project/run.log 2>&1 &
 echo $! > ~/project/run.pid          # remember the run, to stop it later
 tail -f ~/project/run.log            # follow the progress (Ctrl+C stops watching, not the run)
 ```
@@ -158,12 +173,29 @@ kill -- -$(cat ~/project/run.pid)
 ```
 
 - To resume a stopped or interrupted run, run the same command again — finished steps are skipped.
-- Useful options: `--samples P01_T` (only these tumors), `--redo report` (repeat a step), `--dry-run` (print the commands only), `--no-pubmed` (no internet).
+- Useful options: `--samples P01_T` (only these tumors), `--redo figure` (repeat a step), `--dry-run` (print the commands only).
+
+### With Docker
+
+Mount every folder that holds your references, BAMs and project **at the same path** as on your computer
+(`-v /data:/data`, `-v $HOME:$HOME`), so the paths in `puritymap.conf` and `samples.tsv` work unchanged.
+Leave out `--gpus all` on a computer without a GPU.
+
+```bash
+D="docker run --rm --gpus all -u $(id -u):$(id -g) -v /data:/data -v $HOME:$HOME"
+
+$D puritymap check --conf ~/project/puritymap.conf --sheet ~/project/samples.tsv
+$D puritymap prepare-pon --conf ~/project/puritymap.conf --sheet ~/project/pon_normals.tsv --platform WES   # tumor-only only
+
+$D -d --name purity_run puritymap run --conf ~/project/puritymap.conf --sheet ~/project/samples.tsv
+docker logs -f purity_run          # follow the progress (Ctrl+C stops watching, not the run)
+docker stop purity_run             # stop the run
+```
 
 ---
 
 
-## 4. Where the results are
+## 4. Results
 
 Each tumor sample gets its own folder under `RESULTS_DIR` (here `~/project/results/`):
 
@@ -178,7 +210,10 @@ The step folders are created in order as the run proceeds:
 | `3_features/<sample_id>.seg.png` | **2D SNP depth–VAF map** (segment level) — the image the model reads |
 | `3_features/<sample_id>.color.png` | The same map at SNP level |
 | `3_features/qc.tsv` | Quality-control values (normal reference used, heterozygous SNP count, noise) |
-| `4_purity/<sample_id>.purity.tsv` | **Predicted tumor purity** |
+| `4_purity/<sample_id>.purity.tsv` | **Predicted tumor purity** (with the model name, version and device) |
+| `4_purity/<sample_id>_purity.png` | **Purity figure** — SNP depth–VAF distribution with the expected positions for each purity |
+| `metadata.json` | Status, start/end time and duration of each step, purity, sample sheet values |
+| `logs/<step>.log` · `logs/time.tsv` | One log per step and the time per step — look here when a step fails |
 
 ---
 
@@ -193,4 +228,3 @@ PurityMap is available **for academic and non-commercial research use only**.
 Commercial use, including use in a commercial service or product, is not permitted without a separate license
 (contact: <contact email>). PurityMap is a research tool and must not be used for clinical decisions.
 See [LICENSE](LICENSE) for the full terms.
-
