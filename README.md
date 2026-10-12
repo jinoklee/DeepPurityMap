@@ -1,4 +1,4 @@
-# PurityMap
+# DeepPurityMap
 
 **Deep-learning tumor purity estimation from 2D SNP depth–VAF maps**
 
