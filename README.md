@@ -161,7 +161,7 @@ kill -- -$(cat ~/project/run.pid)
 ---
 
 
-## 4. Where the results are
+## 4. Results
 
 Each tumor sample gets its own folder under `RESULTS_DIR` (here `~/project/results/`):
 
@@ -183,15 +183,6 @@ The step folders are created in order as the run proceeds:
 
 ---
 
-## 5. Results
-
-The purity of every sample at once:
-
-```bash
-cat ~/project/results/*/4_purity/*.purity.tsv | awk 'NR == 1 || !/^sample_id/'
-```
-
-Open `4_purity/<sample_id>_purity.png` to see the SNP depth–VAF distribution the estimate is based on.
 
 ## Citation
 
