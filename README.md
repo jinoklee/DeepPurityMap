@@ -2,7 +2,7 @@
 
 **Deep-learning tumor purity estimation from 2D SNP depth–VAF maps**
 
-PurityMap estimates tumor purity from sequencing data. SNP depth and variant allele fraction (VAF) across the genome are
+DeepPurityMap estimates tumor purity from sequencing data. SNP depth and variant allele fraction (VAF) across the genome are
 drawn as a 2D map, and a deep-learning model reads that map to predict purity.
 
 
@@ -12,11 +12,11 @@ drawn as a 2D map, and a deep-learning model reads that map to predict purity.
 
 Linux with [conda](https://docs.conda.io/) — we recommend [Miniforge](https://github.com/conda-forge/miniforge).
 
-### Get PurityMap
+### Get DeepPurityMap
 
 ```bash
-git clone https://github.com/jinoklee/PurityMap.git
-cd PurityMap
+git clone https://github.com/jinoklee/DeepPurityMap.git
+cd DeepPurityMap
 ```
 
 ### Create the conda environments
