@@ -47,6 +47,16 @@ conda run -n puritymap Rscript -e 'library(PSCBS); library(vcfR); library(ggplot
 conda run -n puritymap-predict python -c "import torch, natten, transformers; print('cuda:', torch.cuda.is_available())"
 ```
 
+### Download the model
+
+The model weights are kept on Zenodo ([doi:10.5281/zenodo.XXXXXXX](https://doi.org/10.5281/zenodo.XXXXXXX)).
+Download them into the PurityMap folder (`resources/model/final_model_deploy.pth`):
+
+```bash
+cd ~/PurityMap
+wget -O resources/model/final_model_deploy.pth \
+  "https://zenodo.org/records/XXXXXXX/files/final_model_deploy.pth?download=1"
+```
 
 ---
 
