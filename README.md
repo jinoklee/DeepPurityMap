@@ -5,13 +5,13 @@
 DeepPurityMap estimates tumor purity from sequencing data. SNP depth and variant allele fraction (VAF) across the genome are
 drawn as a 2D map, and a deep-learning model reads that map to predict purity.
 
-The same analysis also comes as a browser app, [Web App](https://github.com/jinoklee/DeepPurityMap/App/README.md):
+The same analysis also comes as a browser [app](https://github.com/jinoklee/DeepPurityMap/blob/main/App/README.md):
 
 ---
 
 ## 1. Requirements
 
-Linux with [conda](https://docs.conda.io/) — we recommend [Miniforge](https://github.com/conda-forge/miniforge).
+Linux with [conda](https://docs.conda.io/)
 
 ### Get DeepPurityMap
 
@@ -50,7 +50,7 @@ conda run -n puritymap-predict python -c "import torch, natten, transformers; pr
 
 ### Download the model
 
-The model weights are attached to the [DeepPurityMap v1.0.0 release](https://github.com/jinoklee/DeepPurityMap/releases/tag/v1.0.0).
+The model weights are attached to the [v1.0.0 release](https://github.com/jinoklee/DeepPurityMap/releases/tag/v1.0.0).
 Download them into the DeepPurityMap folder (`resources/model/final_model_deploy.pth`):
 
 ```bash
