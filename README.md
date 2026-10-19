@@ -50,14 +50,15 @@ conda run -n puritymap-predict python -c "import torch, natten, transformers; pr
 
 ### Download the model
 
-The model weights are kept on Zenodo ([doi:10.5281/zenodo.XXXXXXX](https://doi.org/10.5281/zenodo.XXXXXXX)).
-Download them into the PurityMap folder (`resources/model/final_model_deploy.pth`):
+The model weights are attached to the [DeepPurityMap v1.0.0 release](https://github.com/jinoklee/DeepPurityMap/releases/tag/v1.0.0).
+Download them into the DeepPurityMap folder (`resources/model/final_model_deploy.pth`):
 
 ```bash
-cd ~/PurityMap
+cd ~/DeepPurityMap-CLI
 wget -O resources/model/final_model_deploy.pth \
-  "https://zenodo.org/records/XXXXXXX/files/final_model_deploy.pth?download=1"
+  https://github.com/jinoklee/DeepPurityMap/releases/download/v1.0.0/final_model_deploy.pth
 ```
+
 
 ---
 
