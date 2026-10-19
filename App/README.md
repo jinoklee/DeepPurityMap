@@ -21,6 +21,10 @@ DeepPurityMap also comes as a browser app and gives the copy-number profile, gen
 | **Windows** | [Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/) (WSL 2) |
 | **macOS** | not yet tested |
 
+
+A GPU is optional: without one, the purity model runs on the CPU.
+To use an NVIDIA GPU on Linux, also install the [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html); on Windows, Docker Desktop uses it as is.
+
 ### Data
 
 | Item | Requirements | Where |
