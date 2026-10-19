@@ -1,0 +1,6 @@
+# sample_id: result folder name (letters, digits, -, _)   type: tumor / normal   platform: WES / Panel / WGS
+# paired if a normal with the same patient_id exists, otherwise tumor-only (needs a PoN). bam: absolute path or relative to this file.
+sample_id	patient_id	type	bam	platform	cancer_type
+P01_T	P01	tumor	/path/to/P01_tumor.bam	WES	Stomach adenocarcinoma
+P01_N	P01	normal	/path/to/P01_blood.bam	WES	
+P02_T	P02	tumor	/path/to/P02_tumor.bam	WES	Lung adenocarcinoma

@@ -1,0 +1,37 @@
+# =============================================================================
+# conda environment "puritymap": analysis tools · R · the Python that runs `python -m puritymap`
+#   conda env create -n puritymap -f environment.yml      (also used by docker/Dockerfile)
+#   GATK is not included — install GATK 4.6.2.0 and its own conda env (see README)
+#
+# Version pinning: to reproduce earlier results, write the server conda environment's versions here.
+#   conda list -n <existing env> | grep -E "mosdepth|samtools|bcftools|htslib|bedtools|r-base|data.table|matrixstats|ggplot2|viridis|vcfr|dnacopy"
+#   R -e 'packageVersion("PSCBS")'
+# PSCBS · DNAcopy in particular can change the segments when their version changes.
+# =============================================================================
+name: puritymap
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  # ── Command-line tools ────────────────────────────────────────────────────
+  - mosdepth=0.3.14   # same as the server gatk4 env (checked 2026-10-08)
+  - samtools          # server version not yet checked
+  - bcftools          # server version not yet checked
+  - htslib=1.23.1     # tabix, bgzip — same as the server gatk4 env
+  - bedtools
+  # ── R (run.R · common.R) ─────────────────────────────────────────────────
+  - r-base=4.3
+  - r-data.table
+  - r-matrixstats
+  - r-ggplot2
+  - r-viridis
+  - r-mass
+  - r-vcfr
+  - bioconductor-dnacopy      # PSCBS dependency
+  - r-r.utils                 # PSCBS dependency (installs R.oo · R.methodsS3 too)
+  - r-future                  # PSCBS dependency
+  - r-listenv
+  - bioconductor-aroma.light  # required by segmentByPairedPSCBS (PSCBS fails without it — checked 2026-10-08)
+  - r-gtable                  # 4_purity_figure.R (also pulled in by ggplot2; listed because it is loaded directly)
+  # ── Python that runs `python -m puritymap` ─────────────────────────────────
+  - python=3.10
