@@ -1,0 +1,45 @@
+DeepPurityMap Academic Non-Commercial License
+
+Copyright (c) 2026 <copyright holder>. All rights reserved.
+
+"Software" means the DeepPurityMap source code, documentation, trained model weights and
+any other files distributed with them.
+
+1. Permitted use
+   Permission is granted, free of charge, to any person or institution to use, copy,
+   modify and run the Software solely for academic research, teaching and other
+   non-commercial purposes, including research carried out at universities, hospitals,
+   public research institutes and non-profit organisations.
+
+2. Non-commercial only
+   The Software may not be used for any commercial purpose without a separate written
+   license from the copyright holder. Commercial purposes include, but are not limited to:
+   (a) use in or for a product or service that is sold, licensed or otherwise provided
+       for a fee;
+   (b) use to provide paid analysis, testing or consulting services;
+   (c) use by or on behalf of a for-profit company for its internal research and
+       development or business operations;
+   (d) use of the Software or its outputs to train or develop a commercial product.
+
+3. Clinical use
+   The Software is a research tool. It has not been approved or cleared by any regulatory
+   authority and must not be used to make diagnostic or treatment decisions for patients.
+
+4. Redistribution
+   Copies or modified versions of the Software may be redistributed only for the purposes
+   allowed in section 1, under the terms of this license, with this license text and the
+   copyright notice included, and with modifications clearly marked as such.
+
+5. Citation
+   Publications that use the Software or its results should cite DeepPurityMap
+   (see the README for the reference).
+
+6. No warranty
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+   INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+   PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+   HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
+   CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
+   OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+For commercial licensing, contact: <sejooning@gmail.com>
