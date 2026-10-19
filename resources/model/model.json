@@ -1,0 +1,26 @@
+{
+  "name": "PurityMap-DiNAT",
+  "version": "1.0",
+  "task": "tumor purity regression (0-1)",
+  "backbone": "dinat-base",
+  "backbone_config": "dinat_base_config.json",
+  "weights": "final_model_deploy.pth",
+  "weights_sha256": "fc4e341aa3d3bfb144d6632e54f56f6ee8d01f8405b52fdffc3063cf56bdd0ea",
+  "input": {
+    "image": "3_features/{sample}.seg.png",
+    "description": "density plot of PSCBS segment copy number (x, 0-2) vs het SNP VAF (y, 0-1), viridis on black, chrX excluded",
+    "size": [224, 224]
+  },
+  "head": "mean-pooled last hidden state (1024) → Dropout 0.5 → Linear 128 → ReLU → Dropout 0.3 → Linear 1 → Sigmoid",
+  "training": {
+    "dataset": "34.new_SNP_complex_add_low_tn_correct/datasets_seg",
+    "images": "seg (paired matched-normal and tumor-only kNN images)",
+    "folds": 5,
+    "epochs": 50,
+    "batch_size": 16,
+    "learning_rate": 0.0001,
+    "freeze_ratio": 0.5,
+    "weighted_sampler": true,
+    "scheduler": true
+  }
+}
