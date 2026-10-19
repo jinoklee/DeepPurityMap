@@ -5,7 +5,9 @@
 DeepPurityMap estimates tumor purity from sequencing data. SNP depth and variant allele fraction (VAF) across the genome are
 drawn as a 2D map, and a deep-learning model reads that map to predict purity.
 
-The same analysis also comes as a browser [app](https://github.com/jinoklee/DeepPurityMap/blob/main/App/README.md):
+The same analysis also comes as a browser [app](https://github.com/jinoklee/DeepPurityMap/blob/main/App/README.md)
+
+**Contact** : sejooning@gmail.com , jwyunmd@gmail.com ,  jinoklee.01@gmail.com
 
 ---
 
