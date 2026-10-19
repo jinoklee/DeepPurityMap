@@ -17,8 +17,8 @@ DeepPurityMap also comes as a browser app and gives the copy-number profile, gen
 
 | | Install first |
 |---|---|
-| **Linux (Ubuntu)** | [Docker Engine](https://docs.docker.com/engine/install/); to use an NVIDIA GPU, also the [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html) |
-| **Windows** | [Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/) (WSL 2); NVIDIA GPUs work |
+| **Linux (Ubuntu)** | [Docker Engine](https://docs.docker.com/engine/install/) |
+| **Windows** | [Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/) (WSL 2) |
 | **macOS** | not yet tested |
 
 ### Data
