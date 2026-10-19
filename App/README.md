@@ -1,10 +1,6 @@
-# DeepPurityMap
+# DeepPurityMap App
 
-**Deep-learning tumor purity estimation from 2D SNP depth–VAF maps**
-
-DeepPurityMap estimates tumor purity from sequencing data. SNP depth and variant allele fraction (VAF) across the genome are
-drawn as a 2D map, and a deep-learning model reads that map to predict purity.
-It also gives the copy-number profile, gene-level calls and an HTML report for each sample, all in one browser app:
+DeepPurityMap also comes as a browser app and gives the copy-number profile, gene-level calls and an HTML report for each sample
 
 - **Install**: Docker and one launcher. The tools, the model and the databases come in one image.
 - **Set up**: choose files in the app. Every value is checked, the sample sheet is filled from the BAM folder, and a missing PoN is built automatically.
