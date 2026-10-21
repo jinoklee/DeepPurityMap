@@ -56,7 +56,7 @@ The model weights are attached to the [v1.0.0 release](https://github.com/jinokl
 Download them into the DeepPurityMap folder (`resources/model/final_model_deploy.pth`):
 
 ```bash
-cd ~/DeepPurityMap-CLI
+cd ~/DeepPurityMap
 wget -O resources/model/final_model_deploy.pth \
   https://github.com/jinoklee/DeepPurityMap/releases/download/v1.0.0/final_model_deploy.pth
 ```
