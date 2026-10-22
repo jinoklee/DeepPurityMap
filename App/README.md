@@ -42,7 +42,7 @@ The model and the annotation databases are already in the Docker image — no se
 ## 2. Get DeepPurityMap
 
 Download **`DeepPurityMap-launcher.zip`** from the [Releases](https://github.com/jinoklee/DeepPurityMap/releases) page
-and unpack it anywhere. It holds only the launchers and a short `README.txt`    
+and unpack it anywhere.
 
 ---
 
@@ -57,9 +57,8 @@ Double-click the launcher in the unpacked `DeepPurityMap` folder:
 | **Windows** | `DeepPurityMap.bat` |
 | **Linux** | `DeepPurityMap.sh` (or run `./DeepPurityMap.sh` in a terminal) |
 
-The app opens in your browser at `http://127.0.0.1:8800` (or the next free port if another program uses 8800).
-The **first start downloads the DeepPurityMap image (about 7 GB; keep about 20 GB free on the Docker disk)**;
-later starts take a few seconds.
+The app opens in your browser at `http://127.0.0.1:8800` (or the next free port).   
+The first start downloads the DeepPurityMap image (about 7 GB; keep about 20 GB free on the Docker disk), later starts take a few seconds.  
 The folders of your computer are available in the app, so use your usual paths (`D:\data\...` on Windows, `/data/...` on Linux).
 
 ### Closing the window and quitting the app
@@ -68,31 +67,43 @@ The folders of your computer are available in the app, so use your usual paths (
 |---|---|---|
 | How | close the browser tab or window | the **⏻** button at the top right of the app |
 | The app | **keeps running** | stops |
-| A running analysis | **keeps running** | stops — the app asks first. Run it again later and the finished steps are skipped |
-| To come back | double-click the launcher again — it opens the running app | double-click the launcher — it starts the app again |
+| A running analysis | **keeps running** | stops. The app asks first. Run it again later and the finished steps are skipped |
+| To come back | double-click the launcher again. It opens the running app | double-click the launcher. It starts the app again |
 
-Turning off the computer or quitting Docker also quits the app.
+Quitting Docker also quits the app.
 
 ### Analysis tab
 
 One project folder per analysis:
 
-1. **Project folder** — create one, or open a recent project (its settings, sample sheet, last check and progress come back).
+1. **Project folder** — create one, or open a recent project.
 2. **Settings** — the reference, GATK resources, BED and BAM folder of section 1. Saving checks each value.
    Tumor-only samples need a PoN: give an existing PoN folder, or the folder of normal BAMs (`NORMAL_BAM_DIR`) —
    then the PoN is built automatically, first, when the analysis starts.
    With a BAM folder set, saving also fills the sample sheet (`sample_id`, BAM path, platform).
 3. **Sample sheet** — complete `patient_id`, `tumor`/`normal` and cancer type, then save.
-   A tumor with a normal of the same `patient_id` is analysed as paired; otherwise as tumor-only (needs a PoN).
+   A tumor with a normal of the same `patient_id` is analysed as paired, otherwise as tumor-only (needs a PoN).
 4. **Check**, then **Run**. Progress is shown per sample and step.
 
-[Where to start? (step by step)] in the chat panel walks through these steps one question at a time — no LLM needed.
+The chat panel on the right takes you through the same steps. How it works depends on whether an LLM is set:
+
+| | With an LLM | Without an LLM |
+|---|---|---|
+| Start | Set it in ⚙ at the top right (provider, model, API key), or type the model and key into the chat (e.g. `claude-sonnet-5-5 sk-ant-…`). The chat then takes over. | The chat starts a **step-by-step guide**: one question at a time (project folder → platform → reference → … → check → run). Each answer is checked and filled in on the left. |
+| How you work | Just say it: *"Open D:\projects\lung"*, *"Download the reference to D:\ref\hg38"*, *"The BAMs are in D:\bam — 01A is the tumor, 11A the normal"*, *"Save it"*. | Answer in the input box or press the buttons; [Stop guide] lets you fill the left side yourself. |
+| Check and run | Check and run are offered as cards and start only when you press [Apply]. After the check, the chat reports the result and offers the next step. | The guide runs the check and offers [Start analysis]. |
+
+LLM choices: Anthropic Claude, OpenAI, Google Gemini, Qwen, or a local model (Ollama, LM Studio, vLLM). The API key is kept
+only while the app runs.
+**Data sent to a cloud LLM**: the settings, the sample sheet (sample IDs, BAM paths), folder listings and run status
+(Analysis tab), and purity, copy-number segments and annotated genes (Results tab). BAM or other file contents are never
+sent. Use pseudonymized sample IDs, or a local model (e.g. Ollama) to keep everything on your computer.
 
 ### Results tab
 
 The samples of the open project are listed in a table. Click a sample to read its report.
-The chat panel answers questions about the report when an LLM is set (⚙ at the top right: provider, model, API key;
-the key is kept only while the app runs).
+With an LLM set, the chat panel answers questions about the report or the whole project (*"Summarize the purities"*,
+*"Show chr8"*, *"Which genes are gained?"*); without one, the reports are read on their own.
 
 ---
 
