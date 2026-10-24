@@ -75,7 +75,7 @@ wget -O resources/model/final_model_deploy.pth \
 | Item | Requirements | Where to get it |
 |---|---|---|
 | **Reference FASTA (hg38)** | The same reference the BAMs were aligned to. Uncompressed `.fasta`, with `.fai` and `.dict` in the same folder | [Broad public bucket](https://storage.googleapis.com/gcp-public-data--broad-references/hg38/v0/): `Homo_sapiens_assembly38.fasta` · `.fai` · `.dict` |
-| **4 GATK resources** | In one folder, each with its `.tbi`:<br>`dbsnp_146.hg38.vcf.gz`<br>`Mills_and_1000G_gold_standard.indels.hg38.vcf.gz`<br>`Homo_sapiens_assembly38.known_indels.vcf.gz`<br>`1000G_omni2.5.hg38.vcf.gz` | dbSNP 146: [Broad FTP](ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/hg38/) or the [DDBJ mirror](https://ddbj.nig.ac.jp/public/public-human-genomes/GRCh38/fasta/)<br>Others: the Broad public bucket above |
+| **2 GATK resources** | In one folder, each with its `.tbi`:<br>`dbsnp_146.hg38.vcf.gz`<br>`1000G_omni2.5.hg38.vcf.gz` | dbSNP 146: [Broad FTP](ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/hg38/) or the [DDBJ mirror](https://ddbj.nig.ac.jp/public/public-human-genomes/GRCh38/fasta/)<br>Others: the Broad public bucket above |
 | **BAM files** | hg38-aligned BAMs (the output of a standard alignment pipeline) | your data |
 | **Capture kit BED** | WES and panel only: the kit maker's hg38 BED | the kit maker (WGS needs none) |
 | **6+ normal BAMs** | Only for tumor-only samples: normals of the same capture kit, used to build the panel of normals (PoN) | your data |
