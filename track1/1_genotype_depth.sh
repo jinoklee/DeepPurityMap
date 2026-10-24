@@ -131,8 +131,6 @@ genotype() {
     "${GATK}" FilterVariantTranches \
         -V "${g}/filtered.vcf.gz" \
         --resource "${DBSNP}" \
-        --resource "${MILLS}" \
-        --resource "${KNOWN_INDELS}" \
         --resource "${OMNI}" \
         --output "${g}/filtered_n1d.vcf.gz" \
         --info-key CNN_1D
